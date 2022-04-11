@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Product
+class Category
 {
     /**
      * @ORM\Id
@@ -25,11 +25,6 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $price;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -37,21 +32,21 @@ class Product
     /**
      * @ORM\Column(type="text")
      */
-    private $dateofcreation;
+    private $Dateofcreation;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $dateofupdate;
+    private $Dateofupdate;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="category")
      */
-    private $category;
+    private $products;
 
     public function __construct()
     {
-        $this->category = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,18 +66,6 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(int $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -97,48 +80,51 @@ class Product
 
     public function getDateofcreation(): ?string
     {
-        return $this->dateofcreation;
+        return $this->Dateofcreation;
     }
 
-    public function setDateofcreation(string $dateofcreation): self
+    public function setDateofcreation(string $Dateofcreation): self
     {
-        $this->dateofcreation = $dateofcreation;
+        $this->Dateofcreation = $Dateofcreation;
 
         return $this;
     }
 
     public function getDateofupdate(): ?string
     {
-        return $this->dateofupdate;
+        return $this->Dateofupdate;
     }
 
-    public function setDateofupdate(string $dateofupdate): self
+    public function setDateofupdate(string $Dateofupdate): self
     {
-        $this->dateofupdate = $dateofupdate;
+        $this->Dateofupdate = $Dateofupdate;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Category>
+     * @return Collection<int, Product>
      */
-    public function getCategory(): Collection
+    public function getProducts(): Collection
     {
-        return $this->category;
+        return $this->products;
     }
 
-    public function addCategory(Category $category): self
+    public function addProduct(Product $product): self
     {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addCategory($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(Category $category): self
+    public function removeProduct(Product $product): self
     {
-        $this->category->removeElement($category);
+        if ($this->products->removeElement($product)) {
+            $product->removeCategory($this);
+        }
 
         return $this;
     }
