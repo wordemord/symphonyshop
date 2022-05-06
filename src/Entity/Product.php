@@ -35,12 +35,12 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $dateofcreation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $dateofupdate;
 
