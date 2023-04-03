@@ -9,22 +9,22 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Dateofcreation</th>
-                <th>Dateofupdate</th>
-                <th>actions</th>
-                <th>Navigate to Category products</th>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Datastworzenia</th>
+                <th>Dataaktualizacji</th>
+                <th>akcje</th>
+                <th>Nawiguj do produktów tej kategorii</th>
             </tr>
         </thead>
         <tbody>
         {% for category in categories %}
             <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>{{ category.description }}</td>
-                <td>{{ category.Dateofcreation }}</td>
-                <td>{{ category.Dateofupdate }}</td>
+                <td>{{ category.Id }}</td>
+                <td>{{ category.Nazwa }}</td>
+                <td>{{ category.Opis }}</td>
+                <td>{{ category.Datastworzenia }}</td>
+                <td>{{ category.Dataaktualizacji }}</td>
                 <td>
                     <a href="{{ path('app_category_show', {'id': category.id}) }}">show</a>
                     <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
